@@ -1,0 +1,177 @@
+@import '../../styles/app';
+
+.app-header.navbar {
+  // navbar默认是flex
+  height: $navbar-height;
+  // z-index要父元素的display为非static，表示该元素在z轴上的遮蔽效果
+  // z-index为auto则表示最低层，如果大于0，则更大的值将遮蔽更小的值
+  // 这里使用层级效果的理由是可以搭配box-shadow属性，边缘可以呈现阴影效果
+  z-index: 100;
+  padding: 0 1.85rem 0;
+  //背景为白色
+  background: var(--navbar-bg);
+  // 元素的阴影效果
+  box-shadow: var(--navbar-shadow);
+  transition: $transition-base;
+  border: none;
+  font-weight: 500;
+  // 表示元素的分布从左开始排列，居左排列
+  justify-content: flex-start;
+
+
+  .nav {
+    height: 100%;
+    padding: 0;
+
+    .nav-item {
+      .nav-link, .nav-link > a {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        position: relative;
+        padding: 0.5rem;
+        color: $navbar-link-color;
+
+        @include hover {
+          color: $navbar-link-hover-color;
+          background: $navbar-link-hover-bg;
+          text-decoration: none;
+        }
+
+        .la {
+          font-size: 20px;
+
+          @include media-breakpoint-down(sm) {
+            font-size: 27px;
+          }
+        }
+      }
+    }
+  }
+
+  &.header-dark {
+    .nav {
+      .nav-item {
+        .nav-link, .nav-link > a {
+          color: $white;
+
+          @include hover {
+            color: rgba($white, 0.7);
+          }
+        }
+      }
+    }
+
+    .input-group-text {
+      color: $white;
+    }
+
+    input::placeholder {
+      color: rgba($white, 0.7);
+    }
+
+    .navbarBrand {
+      color: $white;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    padding: 0 $spacer/2;
+  }
+
+  &.navbar-floating-type {
+    margin: $spacer $content-padding 0;
+    border-radius: $border-radius;
+
+    @media (max-width: breakpoint-max(sm)) {
+      margin-left: $content-padding-sm;
+      margin-right: $content-padding-sm;
+    }
+  }
+
+  .form-group {
+    width: 300px;
+    input {
+      background-color: #F9FAFE;
+      &::placeholder {
+        color: #4A5056;
+        font-weight: $font-weight-normal;
+      }
+    }
+    .input-group-prepend {
+      margin-right: 0;
+    }
+
+    .input-group-text {
+      border: none;
+      background-color: #F9FAFE!important;
+      transition: background-color ease-in-out 0.15s;
+    }
+
+  }
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 40px;
+    width: 40px;
+    background: #ffc247;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .avatar-badge {
+    background-color: #0D2B47;
+  }
+
+  .navbarBrand {
+    // 居中
+    position: absolute;
+    // 以下四个属性都为0表示该元素铺满父元素空间
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    // 这个表示子元素横向排列
+    display: flex;
+    // 表示子元素沿着flex轴方向的对齐方式，这里是水平方向
+    justify-content: center;
+    // 表示子元素按垂直方向的对齐方式
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    pointer-events: none;
+
+    i {
+      font-size: 10px;
+    }
+  }
+
+  .notificationsMenu {
+    .dropdown-menu {
+      left: auto !important;
+      right: 0 !important;
+      top: $navbar-height !important;
+    }
+  }
+
+  .dropdown-toggle::after {
+    display: none;
+  }
+
+  .settingsDropdown {
+    .dropdown-item:focus {
+      outline: none;
+    }
+    ul {
+      width: 12rem;
+      li {
+        padding: 4px 0;
+      }
+    }
+  }
+}
+
+

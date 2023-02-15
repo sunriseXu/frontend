@@ -1,0 +1,75 @@
+@import '../../styles/app.scss';
+
+.root {
+  height: 100%;
+  // https://developer.mozilla.org/zh-CN/docs/Web/CSS/position
+  // static表示正常的布局，top, right, bottom, left 和 z-index 属性无效
+  // relative表示相对正常布局static的偏移位置
+  // absolute表示元素会被移出正常文档流，并不为元素预留空间，通过指定元素相对于最近的非static定位祖先元素的偏移，来确定元素位置
+  // 这里使用relative即占据了正常布局的空间，而且还能够改变top left的值，用来移除默认margin
+  position: relative;
+  left: 0;
+  transition: left $sidebar-transition-time ease-in-out;
+}
+
+// wrap表示layout中除了sidebar的header和内容容器
+.wrap {
+  // relative方便调用 left和right
+  position: relative;
+  min-height: 100%;
+  // 容器中的直系子元素就会变为 flex 元素，元素排列为一行 (flex-direction 属性的初始值是 row)。
+  //https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox
+  display: flex;
+  // 搭配 display flex使用，默认为row，横向排列，如果为column则竖直排列
+  // 如果是竖直排列，用默认布局不行吗？
+  flex-direction: column;
+  margin-left: 64px;
+  left: $sidebar-width-open - $sidebar-width-closed;
+  right: 0;
+  transition: left $sidebar-transition-time ease-in-out, margin-left $sidebar-transition-time ease-in-out;
+
+  @media (max-width: breakpoint-max(sm)) {
+    margin-left: 0;
+    left: $sidebar-width-open;
+  }
+}
+
+// 这个是动态类，如果sidebarClose存在，那么左边距为0
+.sidebarClose div.wrap {
+  left: 0;
+}
+//左边距为0，但是还有margin是什么意思
+.sidebarStatic .wrap {
+  //transition: none;
+  left: 0;
+  margin-left: $sidebar-width-open;
+}
+// layout的内容部分
+.content {
+  // 
+  position: relative;
+  //竖直排列
+  display: flex;
+  flex-direction: column;
+  // flex-grow表示对于父容器剩余空间的瓜分，所有flex元素中，如果其中一个flex-grow设置为1，那么该元素就可以拓展到所有剩余空间
+  //https://juejin.cn/post/6844904016439148551
+  flex-grow: 1;
+  padding: $content-padding $content-padding ($content-padding + 20px);
+  background-color: $body-bg;
+
+  @media (max-width: breakpoint-max(sm)) {
+    padding: 20px $content-padding-sm ($content-padding + 30px);
+  }
+
+  // hammers disallows text selection, allowing it for large screens
+  @media (min-width: breakpoint-min(sm)) {
+    user-select: auto !important;
+  }
+}
+
+.contentFooter {
+  // 这里是absolute，相对于content父容器的偏移是，固定在content容器的底部15px位置
+  position: absolute;
+  bottom: 15px;
+  color: $text-muted;
+}
