@@ -1,10 +1,17 @@
 <template>
   <!-- list-group用来展示list表格，实际是div，每个listitem也是div -->
+  <!-- thin-scroll是对滑动条设计样式，不然滑动条默认会很粗，不好看 -->
   <b-list-group class="listGroup thin-scroll">
+    <!-- 默认该元素是有border的，bootstrap定义了border -->
     <b-list-group-item class="listGroupItem bg-attention">
+      <!-- thumb-sm定义在_utils.scss,用于设计thumb图片样式 -->
       <span class="notificationIcon thumb-sm">
+        <!-- fontawesome类 fa fa-check,打勾图标 -->
         <i class="fa fa-check text-success fa-lg" />
       </span>
+      <!-- overflow-hidden是自定义，也就是overflow: hidden,超出父元素范围的内容会隐藏 -->
+      <!-- 用于父元素控制子元素的行为，所以放在父元素中 -->
+      <!-- m-0是margin:0px bootstrap类-->
       <p class="m-0 overflow-hidden">
         2 issues require your approval. &nbsp;<a href="#">The Search Project</a>
         completed on time!

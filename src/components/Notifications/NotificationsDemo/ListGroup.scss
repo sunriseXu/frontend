@@ -1,9 +1,14 @@
 @import '../../../styles/app';
 
+// 列表的wrapper
 .listGroup {
   display: block;
+  //设置固定高度，如果内容超过，则开启滑动
   height: 320px;
+  // 对内部子元素开启滑动
   overflow-y: scroll;
+  // 所有包含listGroupItem类的元素，取第一个
+  // 感觉没有什么必要，因为会影响第二个元素上方也没有border
 
   .listGroupItem:first-child {
     border: none;
@@ -14,6 +19,7 @@
   transition: background-color 0.15s ease-in-out;
   text-decoration: none;
   color: $gray-700;
+  // 左右没有border，但是本来就应该没有border吧
   border-left: none;
   border-right: none;
   display: block;
@@ -49,7 +55,14 @@
 
 .notificationIcon {
   margin-right: 1rem;
+  // float left 使得icon和文字水平分布了
   float: left;
-
+  // https://5xruby.tw/posts/play-sass-mixin-and-include
+  // @include语法引入一个叫clearfix的css代码段，相当于复用
+  // clearfix是bootstrap提供的清除浮动的类
+  // 清除浮动，具体需要查询
+  // 由于上一行设置了float浮动，那么父元素的高度无法被当前子元素
+  // 撑开，主要用于子元素将父元素撑开的场合
+  // 还是需要实验测试一下这个东西
   @include clearfix;
 }
